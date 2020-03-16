@@ -11,10 +11,10 @@ const deckClasses = [
 
 console.log('Options are: ' + deckClasses);
 
+const cards = document.querySelectorAll('.card');
 
-
-const card = document.getElementsByClassName('card');
-
-card.addEventListener('click', function() {
-  console.log('A card was clicked!');
-});
+for (let card of cards) {
+  card.addEventListener('click', function() {
+    console.log('A card was clicked!');
+  });
+}
