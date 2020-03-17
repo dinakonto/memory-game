@@ -1,7 +1,8 @@
 /*
  *    STILL TO DO
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ *    + timer that starts when you show first card, ends when you match all
+ *    + responsive behaviour
+ *    + transitions and animations
  */
 
 
@@ -75,7 +76,7 @@ function resetDeck() {
   }
 }
 
-function moveCounter(num) {
+function moveCounter() {
   moveCount += 1;
   let moveDisplay = document.getElementById('move-count');
   moveDisplay.innerText = moveCount;
@@ -113,6 +114,11 @@ function hasMatch() {
   choices[0].classList.remove('open');
   choices[1].classList.remove('open');
   openCards = [];
+
+  let parent = document.querySelector('.deck')
+  if (parent.children.length == parent.querySelectorAll('.match').length) {
+    completed();
+  }
 }
 
 // If they don't match
@@ -125,6 +131,19 @@ function noMatch() {
     choices[1].classList.remove('nomatch', 'open');
   }, 600);
   openCards = [];
+}
+
+// When you've matched everything
+function completed() {
+  // Display success message
+  let modal = document.querySelector('.modal-bg');
+  modal.style.display = 'block';
+  // Click play again button
+  let playAgain = document.querySelector('#replay');
+  playAgain.onclick = function() {
+    resetDeck();
+    modal.style.display = 'none';
+  }
 }
 
 /* * * * * * * * *

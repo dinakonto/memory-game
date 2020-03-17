@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Memory Game</title>
   <script src="https://kit.fontawesome.com/01d07769e4.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -17,13 +18,12 @@
     </header>
 
     <section class="game-info">
-      <div class="moves">
-        <p>Moves: <span id="move-count">0</span></p>
-      </div>
-      <button id="btn-reset">Reset</button>
+      <p class="moves">Moves: <span id="move-count">0</span></p>
+      <button id="btn-reset"><i class="fas fa-redo-alt"></i> Reset</button>
     </section>
 
     <main class="playing-area">
+
       <ul class="deck">
         <li class="card">
           <i class="fas fa-cat"></i>
@@ -76,6 +76,14 @@
       </ul>
     </main>
 
+  </div>
+  <div class="modal-bg">
+    <div class="modal-content">
+      <p class="hero-emoji" role="image" aria-label="party popper">🎉</p>
+      <h2>Hoorah, you did it!</h2>
+      <p>You matched everything in <span class="moves-final">00</span> moves.</p>
+      <button id="replay">Play again</button>
+    </div>
   </div>
 
   <script src="js/app.js"></script>
