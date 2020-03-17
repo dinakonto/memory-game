@@ -55,6 +55,7 @@ h1 {
 
 .deck .card {
   width: calc((100% - 135px) / 4);
+  height: 1em;
   padding: 50px 0;
   text-align: center;
   color: white;
@@ -65,6 +66,10 @@ h1 {
   -webkit-transition: all .1s ease-in-out;
   -moz-transition: all .1s ease-in-out;
   transition: all .1s ease-in-out;
+}
+
+.deck .card.hide > svg {
+  display: none;
 }
 
 .deck .card.open {

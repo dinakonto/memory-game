@@ -42,6 +42,7 @@ function resetDeck() {
     let cards = document.querySelectorAll('.card');
     for (let animal in deck) {
       cards[i].innerHTML = `<i class="fas ${deck[i]}"></i>`;
+      cards[i].classList.add('hide');
     }
   }
 }
@@ -52,10 +53,19 @@ document.addEventListener('DOMContentLoaded', resetDeck());
 /* * * * * * * * *
  SHOW CARD SYMBOL ONCLICK
  * * * * * * * * */
-function showCard() {
+function showCard(card) {
+  card.classList.remove('hide');
   console.log(`Show card.`)
 }
 
+const cards = document.querySelectorAll('.card')
+
+for (const card of cards) {
+  card.addEventListener('click', function () {
+    console.log('thing clicky');
+    showCard(card);
+  });
+}
 
 
 
