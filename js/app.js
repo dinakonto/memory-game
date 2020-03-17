@@ -42,7 +42,6 @@ function resetDeck() {
     let cards = document.querySelectorAll('.card');
     for (let animal in deck) {
       cards[i].innerHTML = `<i class="fas ${deck[i]}"></i>`;
-      cards[i].classList.add('hide');
     }
   }
 }
@@ -53,27 +52,44 @@ document.addEventListener('DOMContentLoaded', resetDeck());
 /* * * * * * * * *
  SHOW CARD SYMBOL ONCLICK
  * * * * * * * * */
-function showCard(card) {
-  card.classList.remove('hide');
-  card.classList.add('open');
-  console.log(`Show card.`)
-}
+
 
 let openCards = [];
 
+function showCard(card) {
+  card.classList.add('open');
+}
+
 function addCard(card) {
-  console.log(`Add card to list.`)
-  let attr = card.querySelector('svg').getAttribute('data-icon');
-  openCards.push(attr);
-  console.log(openCards)
+  showCard(card);
+  if (openCards.length < 2) {
+    let attr = card.querySelector('svg').getAttribute('data-icon');
+    openCards.push(attr);
+  } if (openCards.length === 2) {
+    checkMatch();
+  }
+};
+
+function checkMatch() {
+  console.log(`Checking for match on: ${openCards}.`);
+  // If it's a match
+  if (openCards[0] == openCards[1]) {
+    console.log('issa match');
+  }
+  // If it's not
+  else {
+    console.log('boo hiss');
+  }
 }
 
 const cards = document.querySelectorAll('.card')
 
 for (const card of cards) {
   card.addEventListener('click', function () {
-    showCard(card);
-    addCard(card);
+    if (openCards.length < 2) {
+      showCard(card);
+      addCard(card);
+    };
   });
 }
 
@@ -81,8 +97,6 @@ for (const card of cards) {
 
 /*
  * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function thatyou call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)

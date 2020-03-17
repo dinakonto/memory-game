@@ -68,8 +68,12 @@ h1 {
   transition: all .1s ease-in-out;
 }
 
-.deck .card.hide > svg {
+.deck .card > svg {
   display: none;
+}
+
+.deck .card.open > svg {
+  display: inline;
 }
 
 .deck .card.open {
