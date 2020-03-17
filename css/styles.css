@@ -37,6 +37,7 @@ h1 {
 
 .game-info .moves {
   padding-right: 30px;
+  text-align: center;
 }
 
 .game-info p {
@@ -58,6 +59,7 @@ button {
   background-color: #e2e2e2;
   border: none;
   outline: none;
+  padding: 10px 20px;
 }
 
 button:hover {
@@ -142,6 +144,7 @@ button:active {
 
 .modal-bg {
   display: none;
+  /* display: block; */
   position: fixed;
   top: 0;
   left: 0;
@@ -175,7 +178,6 @@ button:active {
 
 button#replay {
   font-size: 1.2em;
-  padding: 10px 20px;
   margin-top: 20px;
   background-color: #10E3B9;
 }
