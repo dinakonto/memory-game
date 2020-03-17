@@ -35,14 +35,20 @@ h1 {
   justify-content: center;
 }
 
-.game-info .moves {
-  padding-right: 30px;
-  text-align: center;
-}
-
 .game-info p {
   margin: 5px 0;
   font-size: 1em;
+}
+
+.game-info .timer {
+  padding-top: 10px;
+  margin: 0 50px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.game-info .moves {
+  text-align: center;
 }
 
 #move-count {

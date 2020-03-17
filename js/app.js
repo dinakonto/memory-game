@@ -1,11 +1,9 @@
 /*
  *    STILL TO DO
- *    + star rating that starts with 3-5 and reduces as moves are made
  *    + timer that starts when you show first card, ends when you match all
- *      + add star rating and time to success modal
+ *      + add finish time to success modal
  *    + responsive behaviour
  *    + transitions and animations
- *    + README.md file
  *    MAYBE
  *    + keyboard accessibility
  */
@@ -39,6 +37,9 @@ let openCards = [];
 // Move counter
 let moveCount = 0;
 
+// Timer
+let sec = 0;
+
 /* * * * * * * * *
  FUNCTIONS
  * * * * * * * * */
@@ -71,6 +72,10 @@ function resetDeck() {
   moveCount = 0;
   let moveDisplay = document.getElementById('move-count');
   moveDisplay.innerText = moveCount;
+  //Reset timer
+  sec = 0;
+  document.querySelector('#min').innerHTML = '00';
+  document.querySelector('#sec').innerHTML = '00';
   //Reset stars
   let stars = document.querySelectorAll('.fa-star');
   for (let star of stars) {
@@ -96,6 +101,13 @@ function moveCounter() {
   let moveDisplay = document.getElementById('move-count');
   moveDisplay.innerText = moveCount;
 };
+
+// Timer function
+function fixTime(val) {
+  // Learned about simple timer method here
+  // https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+  return val > 9 ? val : '0' + val;
+}
 
 // Star ratings
 function starOff(num) {
@@ -206,6 +218,12 @@ for (const card of cards) {
     };
   });
 };
+
+// Timer
+setInterval( function() {
+  document.querySelector('#min').innerHTML = fixTime(parseInt(sec / 60, 10));
+  document.querySelector('#sec').innerHTML = fixTime(++sec % 60);
+}, 1000);
 
 // Reset the deck and the move counter
 resetButton.onclick = resetDeck;
