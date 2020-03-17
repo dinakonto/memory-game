@@ -53,18 +53,14 @@ document.addEventListener('DOMContentLoaded', resetDeck());
  SHOW CARD SYMBOL ONCLICK
  * * * * * * * * */
 
-
 let openCards = [];
+
 
 function showCard(card) {
   card.classList.add('open');
-}
-
-function addCard(card) {
-  showCard(card);
   if (openCards.length < 2) {
-    let attr = card.querySelector('svg').getAttribute('data-icon');
-    openCards.push(attr);
+    let iconName = card.querySelector('svg').getAttribute('data-icon');
+    openCards.push(iconName);
   } if (openCards.length === 2) {
     checkMatch();
   }
@@ -72,26 +68,61 @@ function addCard(card) {
 
 function checkMatch() {
   console.log(`Checking for match on: ${openCards}.`);
+  let choices = document.querySelectorAll('.open');
+  console.log(choices);
   // If it's a match
   if (openCards[0] == openCards[1]) {
-    console.log('issa match');
+    choices[0].classList.add('match');
+    choices[1].classList.add('match');
+    choices[0].classList.remove('open');
+    choices[1].classList.remove('open');
+    openCards = [];
   }
   // If it's not
   else {
-    console.log('boo hiss');
+    choices[0].classList.add('nomatch');
+    choices[1].classList.add('nomatch');
+    setTimeout(() => {
+      choices[0].classList.remove('nomatch');
+      choices[1].classList.remove('nomatch');
+      choices[0].classList.remove('open');
+      choices[1].classList.remove('open');
+    }, 1000);
+    openCards = [];
   }
 }
+
 
 const cards = document.querySelectorAll('.card')
 
 for (const card of cards) {
   card.addEventListener('click', function () {
-    if (openCards.length < 2) {
+    if (openCards.length < 2 && !card.classList.contains('open')) {
       showCard(card);
-      addCard(card);
     };
   });
 }
+
+
+// // Turn cards over
+// function turnCard(e) {
+//   const thisCard = e.currentTarget;
+//   // If it's already open or matched, do nothing
+//   if (thisCard.classList.contains('open') || thisCard.classList.contains('matched')) {
+//     console.log(`Already open. You have ${turnsLeft} turns left.`);
+//   }
+//   // Otherwise...
+//   else {
+//     thisCard.classList.add('open');
+//     console.log(`Opened. You have ${turnsLeft} turns left.`);
+//     turnCount();
+//     checkMatch();
+//   }
+// ;}
+
+
+
+
 
 
 

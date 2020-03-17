@@ -72,7 +72,9 @@ h1 {
   display: none;
 }
 
-.deck .card.open > svg {
+.deck .card.open > svg,
+.deck .card.match > svg,
+.deck .card.nomatch > svg {
   display: inline;
 }
 
