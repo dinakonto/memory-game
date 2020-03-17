@@ -55,15 +55,25 @@ document.addEventListener('DOMContentLoaded', resetDeck());
  * * * * * * * * */
 function showCard(card) {
   card.classList.remove('hide');
+  card.classList.add('open');
   console.log(`Show card.`)
+}
+
+let openCards = [];
+
+function addCard(card) {
+  console.log(`Add card to list.`)
+  let attr = card.querySelector('svg').getAttribute('data-icon');
+  openCards.push(attr);
+  console.log(openCards)
 }
 
 const cards = document.querySelectorAll('.card')
 
 for (const card of cards) {
   card.addEventListener('click', function () {
-    console.log('thing clicky');
     showCard(card);
+    addCard(card);
   });
 }
 
