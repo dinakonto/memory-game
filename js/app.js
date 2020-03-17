@@ -138,6 +138,8 @@ function completed() {
   // Display success message
   let modal = document.querySelector('.modal-bg');
   modal.style.display = 'block';
+  let finalMoves = document.querySelector('.moves-final');
+  finalMoves.innerText = moveCount;
   // Click play again button
   let playAgain = document.querySelector('#replay');
   playAgain.onclick = function() {
