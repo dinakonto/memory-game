@@ -25,8 +25,14 @@ const cardTypes = [
   'fa-hippo'
 ];
 
+// Target the reset button
+const resetButton = document.querySelector('button');
+
 // List of which cards are open
 let openCards = [];
+
+// Move counter
+let moveCount = 0;
 
 /* * * * * * * * *
  FUNCTIONS
@@ -52,13 +58,27 @@ function resetDeck() {
   }
   // Save the shuffled deck
   deck = shuffle(deck);
-  // Randomly populate the cards
+
+  openCards = [];
+  moveCount = 0;
+  let moveDisplay = document.getElementById('move-count');
+  moveDisplay.innerText = moveCount;
+
   for (let i = 0; i < deck.length; i++ ) {
+    //Reset everything
     let cards = document.querySelectorAll('.card');
+    cards[i].classList.remove('open', 'match', 'nomatch');
+    // Randomly populate the cards
     for (let animal in deck) {
       cards[i].innerHTML = `<i class="fas ${deck[i]}"></i>`;
     }
   }
+}
+
+function moveCounter(num) {
+  moveCount += 1;
+  let moveDisplay = document.getElementById('move-count');
+  moveDisplay.innerText = moveCount;
 }
 
 // Show the card and add it to the openCards array
@@ -68,6 +88,9 @@ function showCard(card) {
     let iconName = card.querySelector('svg').getAttribute('data-icon');
     openCards.push(iconName);
   } if (openCards.length === 2) {
+    // Set move count forward one
+    moveCounter();
+    // Check to see if they match
     checkMatch();
   }
 };
@@ -98,10 +121,8 @@ function noMatch() {
   choices[0].classList.add('nomatch');
   choices[1].classList.add('nomatch');
   setTimeout(() => {
-    choices[0].classList.remove('nomatch');
-    choices[1].classList.remove('nomatch');
-    choices[0].classList.remove('open');
-    choices[1].classList.remove('open');
+    choices[0].classList.remove('nomatch', 'open');
+    choices[1].classList.remove('nomatch', 'open');
   }, 600);
   openCards = [];
 }
@@ -121,3 +142,6 @@ for (const card of cards) {
     };
   });
 }
+
+// Reset the deck and the move counter
+resetButton.onclick = resetDeck;

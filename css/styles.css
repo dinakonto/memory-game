@@ -28,7 +28,15 @@ h1 {
 
 .game-info {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+}
+
+.game-info p {
+  margin: 0;
+}
+
+.game-info div {
+  width: 20%;
 }
 
 /*
