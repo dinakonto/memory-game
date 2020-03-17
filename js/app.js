@@ -1,3 +1,7 @@
+/*
+ * DECLARE VARIABLES
+ */
+
 const deckClasses = [
   'fa-cat',
   'fa-crow',
@@ -9,12 +13,36 @@ const deckClasses = [
   'fa-hippo'
 ];
 
-console.log('Options are: ' + deckClasses);
-
 const cards = document.querySelectorAll('.card');
 
-for (let card of cards) {
+let turn = 1;
+let moves = 0;
+
+/*
+ * DECLARE FUNCTIONS
+ */
+
+
+
+/*
+ * DOING STUFF
+ */
+
+// For each card
+for (const card of cards) {
+  // Listen for a click
   card.addEventListener('click', function() {
-    console.log('A card was clicked!');
+    // If it's your first card
+    if (turn === 1) {
+      card.classList.add('open');
+      console.log(`Turns: ${turn}`)
+      turn += 1;;
+    }
+    // If it's your second card
+    else if (turn === 2) {
+      card.classList.add('open');
+      console.log(`Turns: ${turn}. Go again.`);
+      turn = 1;
+    };
   });
 }
