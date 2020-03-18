@@ -12,6 +12,8 @@
  GLOBAL VARIABLES
  * * * * * * * * */
 
+
+
 const cardTypes = [
   'fa-cat',
   'fa-crow',
@@ -35,8 +37,8 @@ let openCards = [];
 // Move counter
 let moveCount = 0;
 
-// Timer
-let sec = 0;
+// Variable to hold timer interval function
+let timerInt;
 
 /* * * * * * * * *
  FUNCTIONS
@@ -45,6 +47,17 @@ let sec = 0;
 //
 // GLOBAL GAME FUNCTIONS
 //
+
+//Timer
+function timer() {
+  let s = 0;
+  const sec = document.querySelector('#sec');
+  timerInt = setInterval(function () {
+    sec.innerHTML = s;
+    s++;
+  }, 1000);
+};
+
 // Shuffle the cards and display them randomly
 function resetDeck() {
   // Make two of every card type
@@ -65,16 +78,17 @@ function resetDeck() {
   }
   // Save the shuffled deck
   deck = shuffle(deck);
-  //Reset everything global
+  // Reset card storage and move count
   openCards = [];
   moveCount = 0;
   let moveDisplay = document.getElementById('move-count');
   moveDisplay.innerText = moveCount;
-  //Reset timer
+  // Reset timer
+  clearInterval(timerInt);
   sec = 0;
   document.querySelector('#min').innerHTML = '00';
   document.querySelector('#sec').innerHTML = '00';
-  //Reset stars
+  // Reset stars
   let stars = document.querySelectorAll('.fa-star');
   for (let star of stars) {
     star.classList.add('fas');
@@ -99,13 +113,6 @@ function moveCounter() {
   let moveDisplay = document.getElementById('move-count');
   moveDisplay.innerText = moveCount;
 };
-
-// Turn 'sec' variable into readable time
-function fixTime(val) {
-  // Learned about simple timer method here
-  // https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-  return val > 9 ? val : '0' + val;
-}
 
 // Star ratings
 function starOff(num) {
@@ -193,6 +200,7 @@ function completed() {
 
   // Timer
   let finalTime = document.querySelector('.time').innerHTML;
+  clearInterval(timerInt);
 
   // Display success message
   modal.style.display = 'block';
@@ -216,17 +224,17 @@ document.addEventListener('DOMContentLoaded', resetDeck());
 // Listen for a click on each card
 for (const card of cards) {
   card.addEventListener('click', function () {
+    // If less than 2 cards are shown and this card isn't, show this card
     if (openCards.length < 2 && !card.classList.contains('open')) {
       showCard(card);
     };
+    // If it's the first card opened, start the timer
+    if (moveCount === 0 && openCards.length < 2) {
+      console.log(`start timer now`);
+      timer();
+    }
   });
 };
-
-// Timer
-let timer = setInterval( function() {
-  document.querySelector('#min').innerHTML = fixTime(parseInt(sec / 60, 10));
-  document.querySelector('#sec').innerHTML = fixTime(++sec % 60);
-}, 1000);
 
 // Listen for click on Reset button
 resetButton.onclick = resetDeck;
