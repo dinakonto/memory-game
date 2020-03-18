@@ -5,11 +5,10 @@
 body {
   box-sizing: border-box;
   margin: 0;
-  padding-bottom: 40px;
 }
 
 .container {
-  max-width: 700px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -43,12 +42,21 @@ h1 {
 .game-info .timer {
   padding-top: 10px;
   margin: 0 50px;
-  min-width: 100px;
+  min-width: 70px;
   text-align: center;
 }
 
 .game-info .moves {
   text-align: center;
+}
+
+.game-info .fa-star {
+  height: 12px;
+  width: 10px;
+}
+
+.fa-star {
+  color: #E0B712;
 }
 
 #move-count {
@@ -80,32 +88,30 @@ button:active {
  * Main playing area
  */
 
-.playing-area {
-
-}
-
 .deck {
+  display: flex;
   background-image: linear-gradient(135deg, #00CCBA 0%, #A97DCF 100%);
   list-style: none;
-  padding: 30px 0 0 0;
+  padding: 30px 10px 15px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-content: space-around;
-  border-radius: 10px;
-  -webkit-box-shadow: 10px 10px 14px 0px rgba(148,146,148,1);
+  margin-bottom: 0;
+  /* border-radius: 10px; */
+  /* -webkit-box-shadow: 10px 10px 14px 0px rgba(148,146,148,1);
   -moz-box-shadow: 10px 10px 14px 0px rgba(148,146,148,1);
-  box-shadow: 10px 10px 14px 0px rgba(148,146,148,1);
+  box-shadow: 10px 10px 14px 0px rgba(148,146,148,1); */
 }
 
 .deck .card {
-  width: calc((100% - 135px) / 4);
+  width: calc(90% / 4);
   height: 1em;
-  padding: 50px 0;
+  padding: 40px 0;
+  margin-bottom: 15px;
   text-align: center;
   color: white;
   font-size: 2em;
-  margin-bottom: 30px;
   border-radius: 8px;
   background-color: #2E3D4A;
   -webkit-transition: all .1s ease-in-out;
@@ -114,13 +120,13 @@ button:active {
 }
 
 .deck .card > svg {
-  display: none;
+  visibility: hidden;
 }
 
 .deck .card.open > svg,
 .deck .card.match > svg,
 .deck .card.nomatch > svg {
-  display: inline;
+  visibility: visible;
 }
 
 .deck .card.open {
@@ -163,8 +169,7 @@ button:active {
 
 .modal-content {
   background-color: white;
-  min-width: 750px;
-  width: 80%;
+  min-width: 100%;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -201,3 +206,26 @@ button#replay:hover {
 button#replay:active {
   background-color: #0fd2ab;
 }
+
+/*
+ * Media queries
+ */
+
+@media screen and (min-width: 650px) {
+  body {
+    padding-bottom: 40px;
+  }
+  .container {
+    max-width: 700px;
+  }
+  .deck {
+    padding: 30px 30px 15px;
+    border-radius: 10px;
+    -webkit-box-shadow: 10px 10px 14px 0px rgba(148,146,148,1);
+    -moz-box-shadow: 10px 10px 14px 0px rgba(148,146,148,1);
+    box-shadow: 10px 10px 14px 0px rgba(148,146,148,1);
+  }
+  .deck .card {
+    padding: 55px 0;
+  }
+};

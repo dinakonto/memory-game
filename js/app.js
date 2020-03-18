@@ -1,6 +1,5 @@
 /*
  *    STILL TO DO
- *    + timer to count seconds and minutes in format
  *    + responsive behaviour
  *    + transitions and animations
  *    + keyboard accessibility
@@ -237,7 +236,6 @@ for (const card of cards) {
     };
     // If it's the first card opened, start the timer
     if (moveCount === 0 && openCards.length < 2) {
-      console.log(`start timer now`);
       timer();
     }
   });
