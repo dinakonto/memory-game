@@ -1,6 +1,6 @@
 /*
  *    STILL TO DO
- *    + timer to start when you click first card
+ *    + timer to count seconds and minutes in format
  *    + responsive behaviour
  *    + transitions and animations
  *    + keyboard accessibility
@@ -11,9 +11,6 @@
 /* * * * * * * * *
  GLOBAL VARIABLES
  * * * * * * * * */
-
-
-
 const cardTypes = [
   'fa-cat',
   'fa-crow',
@@ -50,12 +47,22 @@ let timerInt;
 
 //Timer
 function timer() {
-  let s = 0;
-  const sec = document.querySelector('#sec');
+  let s = 1;
   timerInt = setInterval(function () {
-    sec.innerHTML = s;
+    document.querySelector('#sec').innerHTML = formatTime(s % 60);
+    document.querySelector('#min').innerHTML = formatTime(parseInt(s / 60));
     s++;
   }, 1000);
+};
+
+// Add a leading 0 if only 1 digit
+function formatTime(s) {
+  let sString = s + "";
+  if (sString.length < 2) {
+    return "0" + sString;
+  } else {
+    return sString;
+  }
 };
 
 // Shuffle the cards and display them randomly
