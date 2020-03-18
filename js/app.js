@@ -1,7 +1,5 @@
 /*
  *    STILL TO DO
- *    + responsive behaviour
- *    + transitions and animations
  *    + keyboard accessibility
  */
 
@@ -53,7 +51,6 @@ function timer() {
     s++;
   }, 1000);
 };
-
 // Add a leading 0 if only 1 digit
 function formatTime(s) {
   let sString = s + "";
@@ -87,7 +84,7 @@ function resetDeck() {
   // Reset card storage and move count
   openCards = [];
   moveCount = 0;
-  let moveDisplay = document.getElementById('move-count');
+  const moveDisplay = document.getElementById('move-count');
   moveDisplay.innerText = moveCount;
   // Reset timer
   clearInterval(timerInt);
@@ -95,12 +92,11 @@ function resetDeck() {
   document.querySelector('#min').innerHTML = '00';
   document.querySelector('#sec').innerHTML = '00';
   // Reset stars
-  let stars = document.querySelectorAll('.fa-star');
+  const stars = document.querySelectorAll('.fa-star');
   for (let star of stars) {
     star.classList.add('fas');
     star.classList.remove('far');
   }
-
   for (let i = 0; i < deck.length; i++ ) {
     // Reset everything card-specific
     let cards = document.querySelectorAll('.card');
@@ -148,6 +144,8 @@ function showCard(card) {
     // Do nothing
   } else {
     card.classList.add('open');
+    // Animate
+
     if (openCards.length < 2) {
       let iconName = card.querySelector('svg').getAttribute('data-icon');
       openCards.push(iconName);
@@ -172,8 +170,8 @@ function checkMatch() {
 // If they do match
 function hasMatch() {
   let choices = document.querySelectorAll('.open');
-  choices[0].classList.add('match');
-  choices[1].classList.add('match');
+  choices[0].classList.add('match', 'animated', 'rubberBand');
+  choices[1].classList.add('match', 'animated', 'rubberBand');
   choices[0].classList.remove('open');
   choices[1].classList.remove('open');
   openCards = [];
@@ -182,17 +180,18 @@ function hasMatch() {
   if (parent.children.length == parent.querySelectorAll('.match').length) {
     completed();
   }
+
 };
 
 // If they don't match
 function noMatch() {
   let choices = document.querySelectorAll('.open');
-  choices[0].classList.add('nomatch');
-  choices[1].classList.add('nomatch');
+  choices[0].classList.add('nomatch', 'animated', 'shake');
+  choices[1].classList.add('nomatch', 'animated', 'shake');
   setTimeout(() => {
-    choices[0].classList.remove('nomatch', 'open');
-    choices[1].classList.remove('nomatch', 'open');
-  }, 600);
+    choices[0].classList.remove('nomatch', 'open', 'animated', 'shake');
+    choices[1].classList.remove('nomatch', 'open', 'animated', 'shake');
+  }, 800);
   openCards = [];
 };
 
@@ -209,6 +208,7 @@ function completed() {
   clearInterval(timerInt);
 
   // Display success message
+  modal.classList.add('animated', 'fadeIn', 'faster', 'delay-1s');
   modal.style.display = 'block';
   finalMoves.innerText = moveCount;
   document.querySelector('.final-stars').innerHTML = finalStars;
@@ -216,7 +216,11 @@ function completed() {
   // Click play again button
   playAgain.onclick = function() {
     resetDeck();
-    modal.style.display = 'none';
+    modal.classList.remove('fadeIn', 'faster', 'delay-1s');
+    modal.classList.add('fadeOut');
+    setTimeout(function() {
+      modal.style.display = 'none';
+    }, 1000);
   }
 };
 

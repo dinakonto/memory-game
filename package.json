@@ -18,5 +18,8 @@
   "homepage": "https://github.com/dinakonto/memory-game#readme",
   "devDependencies": {
     "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "animate.css": "^3.7.2"
   }
 }
