@@ -173,12 +173,18 @@ button:active {
   align-items: center;
 }
 
+.success-score {
+  text-align: center;
+  line-height: 1.3em;
+}
+
 .hero-emoji {
   font-size: 4em;
   margin: 0;
 }
 
-.moves-final {
+.moves-final,
+.time-final {
   font-weight: 600;
 }
 

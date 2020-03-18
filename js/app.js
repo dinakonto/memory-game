@@ -1,10 +1,8 @@
 /*
  *    STILL TO DO
- *    + timer that starts when you show first card, ends when you match all
- *      + add finish time to success modal
+ *    + timer to start when you click first card
  *    + responsive behaviour
  *    + transitions and animations
- *    MAYBE
  *    + keyboard accessibility
  */
 
@@ -102,7 +100,7 @@ function moveCounter() {
   moveDisplay.innerText = moveCount;
 };
 
-// Timer function
+// Turn 'sec' variable into readable time
 function fixTime(val) {
   // Learned about simple timer method here
   // https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
@@ -192,10 +190,15 @@ function completed() {
   let finalMoves = document.querySelector('.moves-final');
   let finalStars = document.querySelector('.stars').innerHTML;
   let playAgain = document.querySelector('#replay');
+
+  // Timer
+  let finalTime = document.querySelector('.time').innerHTML;
+
   // Display success message
   modal.style.display = 'block';
   finalMoves.innerText = moveCount;
   document.querySelector('.final-stars').innerHTML = finalStars;
+  document.querySelector('.time-final').innerHTML = finalTime;
   // Click play again button
   playAgain.onclick = function() {
     resetDeck();
@@ -220,10 +223,10 @@ for (const card of cards) {
 };
 
 // Timer
-setInterval( function() {
+let timer = setInterval( function() {
   document.querySelector('#min').innerHTML = fixTime(parseInt(sec / 60, 10));
   document.querySelector('#sec').innerHTML = fixTime(++sec % 60);
 }, 1000);
 
-// Reset the deck and the move counter
+// Listen for click on Reset button
 resetButton.onclick = resetDeck;
