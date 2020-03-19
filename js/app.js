@@ -1,10 +1,3 @@
-/*
- *    STILL TO DO
- *    + keyboard accessibility
- */
-
-
-
 /* * * * * * * * *
  GLOBAL VARIABLES
  * * * * * * * * */
@@ -19,28 +12,15 @@ const cardTypes = [
   'fa-hippo'
 ];
 
-// Get all card elements
-const cards = document.querySelectorAll('.card')
-
-// Get reset button
+const cards = document.querySelectorAll('.card');
 const resetButton = document.querySelector('button');
-
-// List of which cards are open
 let openCards = [];
-
-// Move counter
 let moveCount = 0;
-
-// Variable to hold timer interval function
 let timerInt;
 
 /* * * * * * * * *
  FUNCTIONS
  * * * * * * * * */
-
-//
-// GLOBAL GAME FUNCTIONS
-//
 
 //Timer
 function timer() {
@@ -51,20 +31,20 @@ function timer() {
     s++;
   }, 1000);
 };
-// Add a leading 0 if only 1 digit
+// Timer - Add a leading 0 if only 1 digit
 function formatTime(s) {
   let sString = s + "";
   if (sString.length < 2) {
     return "0" + sString;
   } else {
     return sString;
-  }
+  };
 };
 
-// Shuffle the cards and display them randomly
-function resetDeck() {
+// Reset the game
+function resetGame() {
   // Make two of every card type
-  let deck = [...cardTypes, ...cardTypes]
+  let deck = [...cardTypes, ...cardTypes];
   // Shuffle function from http://stackoverflow.com/a/2450976
   function shuffle(array) {
       var currentIndex = array.length, temporaryValue, randomIndex;
@@ -75,10 +55,10 @@ function resetDeck() {
           temporaryValue = array[currentIndex];
           array[currentIndex] = array[randomIndex];
           array[randomIndex] = temporaryValue;
-      }
+      };
 
       return array;
-  }
+  };
   // Save the shuffled deck
   deck = shuffle(deck);
   // Reset card storage and move count
@@ -96,19 +76,19 @@ function resetDeck() {
   for (let star of stars) {
     star.classList.add('fas');
     star.classList.remove('far');
-  }
+  };
   for (let i = 0; i < deck.length; i++ ) {
-    // Reset everything card-specific
+    // Reset card styling
     let cards = document.querySelectorAll('.card');
     cards[i].classList.remove('open', 'match', 'nomatch');
     // Randomly populate the cards again
     for (let animal in deck) {
       cards[i].innerHTML = `<i class="fas ${deck[i]}"></i>`;
-    }
-  }
+    };
+  };
 };
 
-// Keep track of the number of moves
+// Count the number of moves (show 2 cards = 1 turn)
 function moveCounter() {
   moveCount += 1;
   starRating();
@@ -116,13 +96,13 @@ function moveCounter() {
   moveDisplay.innerText = moveCount;
 };
 
-// Star ratings
+// Star rating
 function starOff(num) {
   let stars = document.querySelectorAll('.fa-star');
   let star = stars.item(num);
   star.classList.add('far');
   star.classList.remove('fas');
-}
+};
 function starRating() {
   if (moveCount === 14) {
     starOff(4);
@@ -132,30 +112,30 @@ function starRating() {
     starOff(2);
   } else if (moveCount > 24) {
     starOff(1);
-  }
-}
+  };
+};
 
-//
-// CARD + MATCHING LOGIC
-//
-// Show card and add it to the openCards array
+// Onclick, show card and add it to the openCards array
 function showCard(card) {
+  // If it's already been clicked, do nothing
   if (card.classList.contains('match') || card.classList.contains('nomatch')) {
-    // Do nothing
   } else {
+    // Otherwise, animate it
     card.classList.add('open');
-    // Animate
-
+    // If you've only turned over 1 card
     if (openCards.length < 2) {
+      // Add it to the openCards array
       let iconName = card.querySelector('svg').getAttribute('data-icon');
       openCards.push(iconName);
-    } if (openCards.length === 2) {
+    }
+    // If you've got 2 ards open
+    if (openCards.length === 2) {
       // Set move count forward one
       moveCounter();
       // Check to see if they match
       checkMatch();
-    }
-  }
+    };
+  };
 };
 
 // Check to see if two open cards match
@@ -164,7 +144,7 @@ function checkMatch() {
     hasMatch();
   } else {
     noMatch();
-  }
+  };
 };
 
 // If they do match
@@ -176,10 +156,11 @@ function hasMatch() {
   choices[1].classList.remove('open');
   openCards = [];
 
+  // If it's the last match
   let parent = document.querySelector('.deck')
   if (parent.children.length == parent.querySelectorAll('.match').length) {
     completed();
-  }
+  };
 
 };
 
@@ -203,7 +184,7 @@ function completed() {
   let finalStars = document.querySelector('.stars').innerHTML;
   let playAgain = document.querySelector('#replay');
 
-  // Timer
+  // Get the time (and stop the timer)
   let finalTime = document.querySelector('.time').innerHTML;
   clearInterval(timerInt);
 
@@ -213,15 +194,16 @@ function completed() {
   finalMoves.innerText = moveCount;
   document.querySelector('.final-stars').innerHTML = finalStars;
   document.querySelector('.time-final').innerHTML = finalTime;
+
   // Click play again button
   playAgain.onclick = function() {
-    resetDeck();
+    resetGame();
     modal.classList.remove('fadeIn', 'faster', 'delay-1s');
     modal.classList.add('fadeOut');
     setTimeout(function() {
       modal.style.display = 'none';
     }, 1000);
-  }
+  };
 };
 
 /* * * * * * * * *
@@ -229,7 +211,7 @@ function completed() {
  * * * * * * * * */
 
 // When DOM is ready, load randomised content
-document.addEventListener('DOMContentLoaded', resetDeck());
+document.addEventListener('DOMContentLoaded', resetGame());
 
 // Listen for a click on each card
 for (const card of cards) {
@@ -241,9 +223,9 @@ for (const card of cards) {
     // If it's the first card opened, start the timer
     if (moveCount === 0 && openCards.length < 2) {
       timer();
-    }
+    };
   });
 };
 
 // Listen for click on Reset button
-resetButton.onclick = resetDeck;
+resetButton.onclick = resetGame;
