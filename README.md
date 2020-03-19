@@ -4,7 +4,7 @@ A simple Javascript card-matching game, made as a student project for [Udacity's
 
 ## Screenshots
 
-![Game play](https://github.com/dinakonto/memory-game/raw/master/Screenshots/Game%20play.png "Game play") ![Success screen](https://github.com/dinakonto/memory-game/raw/master/Screenshots/Success.png "Success screen")
+![Game play](https://github.com/dinakonto/memory-game/raw/master/screenshots.png "Game play")
 
 ## Acknowledgement
 
